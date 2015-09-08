@@ -19,3 +19,91 @@ function farm_maple_farm_manager_perms() {
   );
   return farm_manager_entity_perms($types);
 }
+
+/**
+ * Implements hook_farm_admin_actions().
+ */
+function farm_maple_farm_admin_actions() {
+
+  // Define actions.
+  $actions = array(
+    'sugar_bush' => array(
+      'title' => t('Add a sugar bush'),
+      'href' => 'farm/asset/add/sugar_bush',
+      'views' => array(
+        'farm_sugar_bushes',
+      ),
+    ),
+  );
+  return $actions;
+}
+
+/**
+ * Implements hook_farm_asset_breadcrumb().
+ */
+function farm_maple_farm_asset_breadcrumb($farm_asset) {
+
+  // If the asset is a sugar bush, add a link to the maple dashboard.
+  $breadcrumb = array();
+  if ($farm_asset->type == 'sugar_bush') {
+    $breadcrumb[] = l(t('Sugar Bushes'), 'farm/maple');
+  }
+  return $breadcrumb;
+}
+
+/**
+ * Implements hook_farm_asset_view_views().
+ */
+function farm_maple_farm_asset_view_views($farm_asset) {
+
+  // If the entity is not a sugar bush, bail.
+  if ($farm_asset->type != 'sugar_bush') {
+    return array();
+  }
+
+  // Return a list of Views to include on sugar bushes.
+  return array(
+    'farm_log_activity',
+    'farm_log_observation',
+    'farm_log_movement',
+  );
+}
+
+/**
+ * Implements hook_farm_taxonomy_term_view_views().
+ */
+function farm_maple_farm_taxonomy_term_view_views($term) {
+
+  // Start a list of View names.
+  $views = array();
+
+  // Switch logic depending on the vocabulary.
+  switch ($term->vocabulary_machine_name) {
+
+    // Farm areas:
+    case 'farm_areas':
+      $views[] = array(
+        'name' => 'farm_sugar_bushes',
+        'arg' => 1,
+        'weight' => 0,
+      );
+      break;
+  }
+
+  return $views;
+}
+
+/**
+ * Implements hook_farm_area_links().
+ */
+function farm_maple_farm_area_links($id) {
+  return array(
+    array(
+      'title' => t('Sugar Bushes'),
+      'href' => 'taxonomy/term/' . $id,
+      'options' => array(
+        'fragment' => 'Sugar Bushes',
+      ),
+    ),
+  );
+}
