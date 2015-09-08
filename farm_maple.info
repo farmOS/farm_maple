@@ -9,6 +9,7 @@ dependencies[] = farm_map
 dependencies[] = features
 dependencies[] = geofield
 dependencies[] = openlayers_geofield
+dependencies[] = pathauto
 dependencies[] = strongarm
 features[ctools][] = strongarm:strongarm:1
 features[farm_asset_type][] = sugar_bush
