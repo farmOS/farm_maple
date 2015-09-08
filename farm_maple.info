@@ -1,0 +1,17 @@
+name = Farm Maple
+description = Features for management of maple tapping and production.
+core = 7.x
+package = farmOS
+dependencies[] = ctools
+dependencies[] = entity
+dependencies[] = farm_asset
+dependencies[] = farm_map
+dependencies[] = features
+dependencies[] = geofield
+dependencies[] = openlayers_geofield
+dependencies[] = strongarm
+features[ctools][] = strongarm:strongarm:1
+features[farm_asset_type][] = sugar_bush
+features[features_api][] = api:2
+features[field_instance][] = farm_asset-sugar_bush-field_farm_geofield
+features[variable][] = pathauto_farm_asset_sugar_bush_pattern

@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Farm Maple feature.
+ */
+
+include_once 'farm_maple.features.inc';
