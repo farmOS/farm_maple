@@ -5,3 +5,17 @@
  */
 
 include_once 'farm_maple.features.inc';
+
+/**
+ * Implements hook_farm_manager_perms().
+ */
+function farm_maple_farm_manager_perms() {
+
+  // Grant manager permissions to maple management features.
+  $types = array(
+    'farm_asset' => array(
+      'sugar_bush',
+    ),
+  );
+  return farm_manager_entity_perms($types);
+}
