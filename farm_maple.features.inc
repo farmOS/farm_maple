@@ -33,3 +33,29 @@ function farm_maple_default_farm_asset_type() {
   }');
   return $items;
 }
+
+/**
+ * Implements hook_default_log_type().
+ */
+function farm_maple_default_log_type() {
+  $items = array();
+  $items['farm_sap'] = entity_import('log_type', '{
+    "type" : "farm_sap",
+    "label" : "Sap",
+    "weight" : 0,
+    "name_pattern" : "Sap [log:field-farm-sugar-bush]",
+    "name_edit" : "0",
+    "done" : "0",
+    "rdf_mapping" : []
+  }');
+  $items['farm_tap'] = entity_import('log_type', '{
+    "type" : "farm_tap",
+    "label" : "Tap",
+    "weight" : 0,
+    "name_pattern" : "Tap [log:field-farm-sugar-bush]",
+    "name_edit" : "0",
+    "done" : "0",
+    "rdf_mapping" : []
+  }');
+  return $items;
+}

@@ -16,6 +16,10 @@ function farm_maple_farm_manager_perms() {
     'farm_asset' => array(
       'sugar_bush',
     ),
+    'log' => array(
+      'farm_sap',
+      'farm_tap',
+    ),
   );
   return farm_manager_entity_perms($types);
 }
@@ -31,6 +35,28 @@ function farm_maple_farm_admin_actions() {
       'title' => t('Add a sugar bush'),
       'href' => 'farm/asset/add/sugar_bush',
       'views' => array(
+        'farm_sugar_bushes',
+      ),
+    ),
+    'tap' => array(
+      'title' => t('Add taps'),
+      'href' => 'log/add/farm_tap',
+      'assets' => array(
+        'sugar_bush',
+      ),
+      'views' => array(
+        'farm_log_tap',
+        'farm_sugar_bushes',
+      ),
+    ),
+    'sap' => array(
+      'title' => t('Add a sap collection'),
+      'href' => 'log/add/farm_sap',
+      'assets' => array(
+        'sugar_bush',
+      ),
+      'views' => array(
+        'farm_log_sap',
         'farm_sugar_bushes',
       ),
     ),
@@ -63,6 +89,8 @@ function farm_maple_farm_asset_view_views($farm_asset) {
 
   // Return a list of Views to include on sugar bushes.
   return array(
+    'farm_log_tap',
+    'farm_log_sap',
     'farm_log_activity',
     'farm_log_observation',
     'farm_log_movement',
