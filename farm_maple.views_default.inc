@@ -13,7 +13,7 @@ function farm_maple_views_default_views() {
   $view = new view();
   $view->name = 'farm_log_sap';
   $view->description = '';
-  $view->tag = 'farm_log';
+  $view->tag = 'farm_maple';
   $view->base_table = 'log';
   $view->human_name = 'Farm Log: Sap';
   $view->core = 7;
@@ -248,7 +248,7 @@ function farm_maple_views_default_views() {
   $view = new view();
   $view->name = 'farm_log_tap';
   $view->description = '';
-  $view->tag = 'farm_log';
+  $view->tag = 'farm_maple';
   $view->base_table = 'log';
   $view->human_name = 'Farm Log: Tap';
   $view->core = 7;
@@ -495,7 +495,7 @@ function farm_maple_views_default_views() {
   $view = new view();
   $view->name = 'farm_sugar_bushes';
   $view->description = '';
-  $view->tag = 'farm_livestock';
+  $view->tag = 'farm_maple';
   $view->base_table = 'farm_asset';
   $view->human_name = 'Farm Sugar Bushes';
   $view->core = 7;
