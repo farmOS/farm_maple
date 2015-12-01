@@ -13,7 +13,7 @@ function farm_maple_field_default_field_instances() {
   // Exported field_instance: 'farm_asset-sugar_bush-field_farm_geofield'
   $field_instances['farm_asset-sugar_bush-field_farm_geofield'] = array(
     'bundle' => 'sugar_bush',
-    'default_value' => array(),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -37,7 +37,7 @@ function farm_maple_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'geofield',
+      'module' => 'openlayers_geofield',
       'settings' => array(
         'allow_edit' => 1,
         'data_storage' => 'single',
@@ -47,8 +47,8 @@ function farm_maple_field_default_field_instances() {
           'point' => 'point',
           'polygon' => 'polygon',
         ),
-        'geocoder_field' => '',
-        'geocoder_handler' => '',
+        'geocoder_field' => 'field_farm_geofield',
+        'geocoder_handler' => 'yandex',
         'handler_settings' => array(
           'google' => array(
             'all_results' => 0,
@@ -62,9 +62,10 @@ function farm_maple_field_default_field_instances() {
           ),
         ),
         'openlayers_map' => 'farm_map_geofield',
+        'showInputField' => 0,
         'use_geocoder' => 0,
       ),
-      'type' => 'geofield_wkt',
+      'type' => 'openlayers_geofield',
       'weight' => 1,
     ),
   );
