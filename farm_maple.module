@@ -152,3 +152,30 @@ function farm_maple_farm_area_links($id) {
     ),
   );
 }
+
+/**
+ * Implements hook_page_build().
+ */
+function farm_maple_page_build(&$page) {
+
+  // If this is the maple page, display the sugar bush asset map.
+$current_path = current_path();
+  $map_paths = array(
+    'farm/maple',
+    'farm/maple/list',
+  );
+  if (in_array($current_path, $map_paths)) {
+
+    // Load the assets map.
+    $map = \Drupal\openlayers\Openlayers::load('Map', 'farm_assets_sugar_bush');
+
+    // Build the map and add it to the page content.
+    $page['content']['farm_assets_sugar_bush'] = $map->build();
+
+    // Set the weight to -100 so that it appears on top.
+    $page['content']['farm_assets_sugar_bush']['#weight'] = -100;
+
+    // Set the content region #sorted flag to FALSE so that it resorts.
+    $page['content']['#sorted'] = FALSE;
+  }
+}
