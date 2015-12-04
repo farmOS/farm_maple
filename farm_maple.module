@@ -166,7 +166,8 @@ function farm_maple_views_post_render(&$view, &$output, &$cache) {
 
       // Add the Sugar Bushes asset map to the top of the View.
       $map = \Drupal\openlayers\Openlayers::load('Map', 'farm_assets_sugar_bush');
-      $output = drupal_render($map->build()) . $output;
+      $map_build = $map->build();
+      $output = drupal_render($map_build) . $output;
     }
   }
 }
