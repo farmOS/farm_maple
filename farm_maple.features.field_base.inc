@@ -10,7 +10,7 @@
 function farm_maple_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_farm_sugar_bush'
+  // Exported field_base: 'field_farm_sugar_bush'.
   $field_bases['field_farm_sugar_bush'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -45,7 +45,7 @@ function farm_maple_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_farm_tap_count'
+  // Exported field_base: 'field_farm_tap_count'.
   $field_bases['field_farm_tap_count'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -60,7 +60,7 @@ function farm_maple_field_default_field_bases() {
     'type' => 'number_integer',
   );
 
-  // Exported field_base: 'field_farm_tap_size'
+  // Exported field_base: 'field_farm_tap_size'.
   $field_bases['field_farm_tap_size'] = array(
     'active' => 1,
     'cardinality' => 1,

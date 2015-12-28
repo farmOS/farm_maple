@@ -10,7 +10,7 @@
 function farm_maple_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'farm_asset-sugar_bush-field_farm_geofield'
+  // Exported field_instance: 'farm_asset-sugar_bush-field_farm_geofield'.
   $field_instances['farm_asset-sugar_bush-field_farm_geofield'] = array(
     'bundle' => 'sugar_bush',
     'default_value' => NULL,
@@ -70,7 +70,7 @@ function farm_maple_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_sap-field_farm_notes'
+  // Exported field_instance: 'log-farm_sap-field_farm_notes'.
   $field_instances['log-farm_sap-field_farm_notes'] = array(
     'bundle' => 'farm_sap',
     'default_value' => NULL,
@@ -104,7 +104,7 @@ function farm_maple_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_sap-field_farm_quantity'
+  // Exported field_instance: 'log-farm_sap-field_farm_quantity'.
   $field_instances['log-farm_sap-field_farm_quantity'] = array(
     'bundle' => 'farm_sap',
     'default_value' => NULL,
@@ -137,7 +137,7 @@ function farm_maple_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_sap-field_farm_sugar_bush'
+  // Exported field_instance: 'log-farm_sap-field_farm_sugar_bush'.
   $field_instances['log-farm_sap-field_farm_sugar_bush'] = array(
     'bundle' => 'farm_sap',
     'default_value' => array(),
@@ -174,7 +174,7 @@ function farm_maple_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_tap-field_farm_notes'
+  // Exported field_instance: 'log-farm_tap-field_farm_notes'.
   $field_instances['log-farm_tap-field_farm_notes'] = array(
     'bundle' => 'farm_tap',
     'default_value' => NULL,
@@ -208,7 +208,7 @@ function farm_maple_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_tap-field_farm_sugar_bush'
+  // Exported field_instance: 'log-farm_tap-field_farm_sugar_bush'.
   $field_instances['log-farm_tap-field_farm_sugar_bush'] = array(
     'bundle' => 'farm_tap',
     'default_value' => NULL,
@@ -245,7 +245,7 @@ function farm_maple_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_tap-field_farm_tap_count'
+  // Exported field_instance: 'log-farm_tap-field_farm_tap_count'.
   $field_instances['log-farm_tap-field_farm_tap_count'] = array(
     'bundle' => 'farm_tap',
     'default_value' => NULL,
@@ -285,7 +285,7 @@ function farm_maple_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_tap-field_farm_tap_size'
+  // Exported field_instance: 'log-farm_tap-field_farm_tap_size'.
   $field_instances['log-farm_tap-field_farm_tap_size'] = array(
     'bundle' => 'farm_tap',
     'default_value' => array(),
