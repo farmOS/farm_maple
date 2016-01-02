@@ -62,7 +62,7 @@ function farm_maple_field_default_field_instances() {
           ),
         ),
         'openlayers_map' => 'farm_map_geofield',
-        'showInputField' => 0,
+        'showInputField' => 1,
         'use_geocoder' => 0,
       ),
       'type' => 'openlayers_geofield',
