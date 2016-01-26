@@ -14,7 +14,6 @@ This module depends on the following modules:
  * Ctools (http://drupal.org/project/ctools)
  * Entity API (http://drupal.org/project/entity)
  * Features (http://drupal.org/project/features)
- * Filefield Paths (http://drupal.org/project/filefield_paths)
  * Geofield (http://drupal.org/project/geofield)
  * OpenLayers 3.x (http://drupal.org/project/openlayers)
  * Pathauto (http://drupal.org/project/pathauto)
