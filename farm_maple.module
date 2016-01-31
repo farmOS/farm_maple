@@ -89,7 +89,8 @@ function farm_maple_farm_asset_breadcrumb($farm_asset) {
   // If the asset is a sugar bush, add a link to the maple dashboard.
   $breadcrumb = array();
   if ($farm_asset->type == 'sugar_bush') {
-    $breadcrumb[] = l(t('Sugar Bushes'), 'farm/maple');
+    $breadcrumb[] = l(t('Assets'), 'farm/assets');
+    $breadcrumb[] = l(t('Sugar Bushes'), 'farm/assets/maple');
   }
   return $breadcrumb;
 }

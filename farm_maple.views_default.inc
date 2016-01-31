@@ -236,10 +236,10 @@ function farm_maple_views_default_views() {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'farm/maple/sap';
-  $handler->display->display_options['menu']['type'] = 'tab';
-  $handler->display->display_options['menu']['title'] = 'Sap Logs';
-  $handler->display->display_options['menu']['weight'] = '10';
+  $handler->display->display_options['path'] = 'farm/logs/sap';
+  $handler->display->display_options['menu']['type'] = 'normal';
+  $handler->display->display_options['menu']['title'] = 'Maple Sap';
+  $handler->display->display_options['menu']['weight'] = '';
   $handler->display->display_options['menu']['name'] = 'farm';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
@@ -483,10 +483,10 @@ function farm_maple_views_default_views() {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'farm/maple/taps';
-  $handler->display->display_options['menu']['type'] = 'tab';
-  $handler->display->display_options['menu']['title'] = 'Tap Logs';
-  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['path'] = 'farm/logs/taps';
+  $handler->display->display_options['menu']['type'] = 'normal';
+  $handler->display->display_options['menu']['title'] = 'Maple Taps';
+  $handler->display->display_options['menu']['weight'] = '';
   $handler->display->display_options['menu']['name'] = 'farm';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
@@ -656,7 +656,7 @@ function farm_maple_views_default_views() {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'farm/maple/list';
+  $handler->display->display_options['path'] = 'farm/assets/maple/list';
   $handler->display->display_options['menu']['type'] = 'default tab';
   $handler->display->display_options['menu']['title'] = 'Sugar Bushes';
   $handler->display->display_options['menu']['weight'] = '-10';
