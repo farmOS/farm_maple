@@ -63,7 +63,6 @@ function farm_maple_farm_admin_actions() {
       ),
       'views' => array(
         'farm_log_tap',
-        'farm_sugar_bushes',
       ),
     ),
     'sap' => array(
@@ -74,7 +73,6 @@ function farm_maple_farm_admin_actions() {
       ),
       'views' => array(
         'farm_log_sap',
-        'farm_sugar_bushes',
       ),
     ),
   );
