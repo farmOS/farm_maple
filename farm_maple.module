@@ -141,12 +141,19 @@ function farm_maple_farm_taxonomy_term_view_views($term) {
  * Implements hook_farm_area_links().
  */
 function farm_maple_farm_area_links($id) {
-  return array(
-    array(
-      'title' => t('Sugar Bushes'),
+  $links = array();
+
+  // Add link to sugar bushes
+  $view = views_get_view('farm_sugar_bushes');
+  $view->preview('default', array($id));
+  if ($view->total_rows > 0) {
+    $links[] = array(
+      'title' => t('Sugar Bushes') . ': ' . $view->total_rows,
       'href' => 'farm/assets/maple/' . $id,
-    ),
-  );
+    );
+  }
+
+  return $links;
 }
 
 /**
