@@ -144,10 +144,7 @@ function farm_maple_farm_area_links($id) {
   return array(
     array(
       'title' => t('Sugar Bushes'),
-      'href' => 'taxonomy/term/' . $id,
-      'options' => array(
-        'fragment' => 'Sugar Bushes',
-      ),
+      'href' => 'farm/assets/maple/' . $id,
     ),
   );
 }
