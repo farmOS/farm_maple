@@ -20,6 +20,7 @@ This module depends on the following modules:
  * Strongarm (http://drupal.org/project/strongarm)
  * Farm Asset (http://drupal.org/project/farm_asset)
  * Farm Map (http://drupal.org/project/farm_map)
+ * Farm Quantity (http://drupal.org/project/farm_quantity)
 
 INSTALLATION
 ------------
