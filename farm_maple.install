@@ -1,0 +1,65 @@
+<?php
+
+/**
+ * @file
+ * Farm Maple install file.
+ */
+
+/**
+ * Migrate Sap logs to Harvests.
+ */
+function farm_maple_update_7000(&$sandbox) {
+
+  // Load all sap logs.
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'log');
+  $query->entityCondition('bundle', 'farm_sap');
+  $result = $query->execute();
+  if (isset($result['log'])) {
+    $ids = array_keys($result['log']);
+    $logs = entity_load('log', $ids);
+  }
+
+  // If logs were loaded, iterate through them...
+  if (!empty($logs)) {
+    foreach ($logs as $log) {
+
+      // Build a list of values for the new harvest log.
+      $values = array(
+        'type' => 'farm_harvest',
+        'name' => $log->name,
+        'timestamp' => $log->timestamp,
+        'created' => $log->created,
+        'changed' => $log->changed,
+        'uid' => $log->uid,
+        'done' => $log->done,
+      );
+
+      // Create a new harvest log.
+      $harvest = entity_create('log', $values);
+
+      // Copy fields from the sap log.
+      $harvest->field_farm_asset = $log->field_farm_sugar_bush;
+      $harvest->field_farm_quantity = $log->field_farm_quantity;
+      $harvest->field_farm_notes = $log->field_farm_notes;
+
+      // Save the new log.
+      log_save($harvest);
+
+      // Delete the old log.
+      log_delete($log);
+    }
+  }
+
+  // Delete the View, if it still exists.
+  $view = views_get_view('farm_log_sap');
+  if (!empty($view)) {
+    views_delete_view($view);
+  }
+
+  // Delete the sap log type.
+  $log_type = log_type_load('farm_sap');
+  if (!empty($log_type)) {
+    log_type_delete($log_type);
+  }
+}
