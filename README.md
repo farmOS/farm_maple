@@ -14,11 +14,10 @@ This module depends on the following modules:
  * Ctools (http://drupal.org/project/ctools)
  * Entity API (http://drupal.org/project/entity)
  * Features (http://drupal.org/project/features)
- * Geofield (http://drupal.org/project/geofield)
- * OpenLayers 3.x (http://drupal.org/project/openlayers)
  * Pathauto (http://drupal.org/project/pathauto)
  * Strongarm (http://drupal.org/project/strongarm)
  * Farm Asset (http://drupal.org/project/farm_asset)
+ * Farm Log (http://drupal.org/project/farm_log)
  * Farm Map (http://drupal.org/project/farm_map)
  * Farm Quantity (http://drupal.org/project/farm_quantity)
 
