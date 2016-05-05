@@ -233,7 +233,6 @@ function farm_maple_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('How many taps were set in this sugar bush?');
-  t('Location');
   t('Notes');
   t('Photo(s)');
   t('Sugar Bush');
