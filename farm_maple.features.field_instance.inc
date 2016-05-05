@@ -292,17 +292,14 @@ function farm_maple_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Describe the quantity of this harvest, using a value and a unit of measurement. For example, if you harvested 10 gallons of sap, enter "10" in the Value field, and "gallons" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');
   t('How many taps were set in this sugar bush?');
   t('Location');
   t('Notes');
   t('Photo(s)');
-  t('Quantity');
   t('Sugar Bush');
   t('Tap Count');
   t('Tap Size');
   t('The sugar bush that is being tapped.');
-  t('The sugar bush that the sap is coming from.');
 
   return $field_instances;
 }
