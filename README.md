@@ -3,7 +3,7 @@ FARM MAPLE
 
 Provides features for managing maple tapping and production.
 
-This module is part of the [farmOS](http://drupal.org/project/farm)
+This module is an add-on for the [farmOS](http://drupal.org/project/farm)
 distribution.
 
 DEPENDENCIES
