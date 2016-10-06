@@ -230,8 +230,49 @@ function farm_maple_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_tap-field_farm_time_spent'.
+  $field_instances['log-farm_tap-field_farm_time_spent'] = array(
+    'bundle' => 'farm_tap',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'How long did tapping take?',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 2,
+          'thousand_separator' => '',
+        ),
+        'type' => 'number_decimal',
+        'weight' => 6,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_time_spent',
+    'label' => 'Time spent',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => '',
+      'prefix' => '',
+      'suffix' => ' hour|hours',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 8,
+    ),
+  );
+
   // Translatables
   // Included for use with string extractors like potx.
+  t('How long did tapping take?');
   t('How many taps were set in this sugar bush?');
   t('Notes');
   t('Photo(s)');
@@ -239,6 +280,7 @@ function farm_maple_field_default_field_instances() {
   t('Tap Count');
   t('Tap Size');
   t('The sugar bush that is being tapped.');
+  t('Time spent');
 
   return $field_instances;
 }
