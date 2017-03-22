@@ -31,6 +31,7 @@ features[field_instance][] = log-farm_tap-field_farm_notes
 features[field_instance][] = log-farm_tap-field_farm_sugar_bush
 features[field_instance][] = log-farm_tap-field_farm_tap_count
 features[field_instance][] = log-farm_tap-field_farm_tap_size
+features[field_instance][] = log-farm_tap-field_farm_time_spent
 features[log_type][] = farm_tap
 features[variable][] = pathauto_farm_asset_sugar_bush_pattern
 features[views_view][] = farm_log_tap
