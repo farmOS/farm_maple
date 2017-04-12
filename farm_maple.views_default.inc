@@ -283,6 +283,7 @@ function farm_maple_views_default_views() {
     t('Start date'),
     t('End date'),
     t('Page'),
+  );
 
   /* Display: Data export */
   $handler = $view->new_display('views_data_export', 'Data export', 'views_data_export_1');
@@ -521,6 +522,7 @@ function farm_maple_views_default_views() {
     t('Sugar Bushes in %1'),
     t('Active'),
     t('Page'),
+  );
 
   /* Display: Data export */
   $handler = $view->new_display('views_data_export', 'Data export', 'views_data_export_1');
