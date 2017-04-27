@@ -198,3 +198,14 @@ function farm_maple_views_post_render(&$view, &$output, &$cache) {
     }
   }
 }
+
+/**
+ * Implements hook_farm_log_allowed_asset_reference_type().
+ */
+function farm_maple_farm_log_allowed_asset_reference_type($log_type) {
+
+  // On tap logs, only sugar bushes can be referenced.
+  if ($log_type == 'farm_tap') {
+    return 'sugar_bush';
+  }
+}
