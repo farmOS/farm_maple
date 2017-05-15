@@ -6,49 +6,61 @@
  */
 
 /**
+ * Implements hook_update_dependencies().
+ */
+function farm_maple_update_dependencies() {
+
+  // Wait to update farm_log_movement to 7001 until farm_maple has had a chance
+  // to run its own 7001 update.
+  $dependencies['farm_log_movement'][7001] = array('farm_maple' => 7001);
+
+  return $dependencies;
+}
+
+/**
  * Migrate Sap logs to Harvests.
  */
 function farm_maple_update_7000(&$sandbox) {
 
   // Load all sap logs.
-  $query = new EntityFieldQuery();
-  $query->entityCondition('entity_type', 'log');
-  $query->entityCondition('bundle', 'farm_sap');
+  $query = db_query("SELECT id FROM {log} WHERE type = 'farm_sap'");
   $result = $query->execute();
-  if (isset($result['log'])) {
-    $ids = array_keys($result['log']);
-    $logs = entity_load('log', $ids);
-  }
 
-  // If logs were loaded, iterate through them...
-  if (!empty($logs)) {
-    foreach ($logs as $log) {
+  // Iterate through the results.
+  foreach ($result as $record) {
 
-      // Build a list of values for the new harvest log.
-      $values = array(
-        'type' => 'farm_harvest',
-        'name' => $log->name,
-        'timestamp' => $log->timestamp,
-        'created' => $log->created,
-        'changed' => $log->changed,
-        'uid' => $log->uid,
-        'done' => $log->done,
-      );
+    // Load the log.
+    $log = log_load($record->id);
 
-      // Create a new harvest log.
-      $harvest = entity_create('log', $values);
-
-      // Copy fields from the sap log.
-      $harvest->field_farm_asset = $log->field_farm_sugar_bush;
-      $harvest->field_farm_quantity = $log->field_farm_quantity;
-      $harvest->field_farm_notes = $log->field_farm_notes;
-
-      // Save the new log.
-      log_save($harvest);
-
-      // Delete the old log.
-      log_delete($log);
+    // If the log didn't load, skip it.
+    if (empty($log)) {
+      continue;
     }
+
+    // Build a list of values for the new harvest log.
+    $values = array(
+      'type' => 'farm_harvest',
+      'name' => $log->name,
+      'timestamp' => $log->timestamp,
+      'created' => $log->created,
+      'changed' => $log->changed,
+      'uid' => $log->uid,
+      'done' => $log->done,
+    );
+
+    // Create a new harvest log.
+    $harvest = entity_create('log', $values);
+
+    // Copy fields from the sap log.
+    $harvest->field_farm_asset = $log->field_farm_sugar_bush;
+    $harvest->field_farm_quantity = $log->field_farm_quantity;
+    $harvest->field_farm_notes = $log->field_farm_notes;
+
+    // Save the new log.
+    log_save($harvest);
+
+    // Delete the old log.
+    log_delete($log);
   }
 
   // Delete the View, if it still exists.
@@ -69,53 +81,53 @@ function farm_maple_update_7000(&$sandbox) {
  */
 function farm_maple_update_7001(&$sandbox) {
 
-  // Load all sugar bush assets
-  $query = new EntityFieldQuery();
-  $query->entityCondition('entity_type', 'farm_asset');
-  $query->entityCondition('bundle', 'sugar_bush');
+  // Load all sugar bush assets.
+  $query = db_query("SELECT id FROM {farm_asset} WHERE type = 'sugar_bush'");
   $result = $query->execute();
-  if (isset($result['farm_asset'])) {
-    $ids = array_keys($result['farm_asset']);
-    $assets = entity_load('farm_asset', $ids);
-  }
 
-  // If assets were loaded, iterate through them...
-  if (!empty($assets)) {
-    foreach ($assets as $asset) {
+  // Iterate through the results.
+  foreach ($result as $record) {
 
-      // Build a list of values for the new movement log.
-      $values = array(
-        'type' => 'farm_movement',
-        'timestamp' => $asset->created,
-        'created' => $asset->created,
-        'changed' => $asset->created,
-        'uid' => $asset->uid,
-        'done' => TRUE,
-      );
+    // Load the asset.
+    $asset = farm_asset_load($record->id);
 
-      // Create a new Area for the sugar bush.
-      $vocab = taxonomy_vocabulary_machine_name_load('farm_areas');
-      $term = entity_create('taxonomy_term', array(
-        'name' => $asset->name,
-        'vid' => $vocab->vid,
-      ));
-      taxonomy_term_save($term);
-
-      // Create a new movement log.
-      $movement = entity_create('log', $values);
-
-      // Assign the movement to the asset.
-      $movement->field_farm_asset[LANGUAGE_NONE][0]['target_id'] = $asset->id;
-
-      // Assign the movement to the new area.
-      $movement->field_farm_move_to[LANGUAGE_NONE][0]['tid'] = $term->tid;
-
-      // Copy geometry field from the asset.
-      $movement->field_farm_geofield = $asset->field_farm_geofield;
-
-      // Save the new log.
-      log_save($movement);
+    // If the asset didn't load, skip it.
+    if (empty($asset)) {
+      continue;
     }
+
+    // Build a list of values for the new movement log.
+    $values = array(
+      'type' => 'farm_movement',
+      'timestamp' => $asset->created,
+      'created' => $asset->created,
+      'changed' => $asset->created,
+      'uid' => $asset->uid,
+      'done' => TRUE,
+    );
+
+    // Create a new Area for the sugar bush.
+    $vocab = taxonomy_vocabulary_machine_name_load('farm_areas');
+    $term = entity_create('taxonomy_term', array(
+      'name' => $asset->name,
+      'vid' => $vocab->vid,
+    ));
+    taxonomy_term_save($term);
+
+    // Create a new movement log.
+    $movement = entity_create('log', $values);
+
+    // Assign the movement to the asset.
+    $movement->field_farm_asset[LANGUAGE_NONE][0]['target_id'] = $asset->id;
+
+    // Assign the movement to the new area.
+    $movement->field_farm_move_to[LANGUAGE_NONE][0]['tid'] = $term->tid;
+
+    // Copy geometry field from the asset.
+    $movement->field_farm_geofield = $asset->field_farm_geofield;
+
+    // Save the new log.
+    log_save($movement);
   }
 
   // Delete the geometry field from the asset.
