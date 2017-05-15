@@ -10,8 +10,11 @@
  */
 function farm_maple_update_dependencies() {
 
-  // Wait to update farm_log_movement to 7001 until farm_maple has had a chance
-  // to run its own 7001 update.
+  // Run farm_log_movement_7000(), then farm_maple_7000(), then farm_log_7000(),
+  // then farm_maple_7001(), and finally farm_log_movement_7001().
+  $dependencies['farm_maple'][7000] = array('farm_log_movement' => 7000);
+  $dependencies['farm_maple'][7001] = array('farm_log_movement' => 7000);
+  $dependencies['farm_maple'][7001] = array('farm_log' => 7006);
   $dependencies['farm_log_movement'][7001] = array('farm_maple' => 7001);
 
   return $dependencies;
@@ -22,45 +25,33 @@ function farm_maple_update_dependencies() {
  */
 function farm_maple_update_7000(&$sandbox) {
 
-  // Load all sap logs.
-  $query = db_query("SELECT id FROM {log} WHERE type = 'farm_sap'");
-  $result = $query->execute();
+  // Make a list of fields on sap logs.
+  $query = db_select('field_config_instance', 'fci');
+  $query->addField('fci', 'field_name');
+  $query->condition('fci.entity_type', 'log');
+  $query->condition('fci.bundle', 'farm_sap');
+  $query->condition('fci.deleted', 0);
+  $sap_fields = $query->execute()->fetchAllKeyed(0,0);
 
-  // Iterate through the results.
-  foreach ($result as $record) {
+  // Change all sap logs to harvest logs directly in the {log} table.
+  db_query("UPDATE {log} SET type = 'farm_harvest' WHERE type = 'farm_sap'");
 
-    // Load the log.
-    $log = log_load($record->id);
+  // Migrate values from field_farm_sugar_bush to field_farm_asset tables.
+  db_query("INSERT INTO {field_data_field_farm_asset} (SELECT entity_type, 'farm_harvest' as bundle, deleted, entity_id, revision_id, language, delta, field_farm_sugar_bush_target_id as field_farm_asset_target_id FROM {field_data_field_farm_sugar_bush} WHERE entity_type = 'log' AND bundle = 'farm_sap')");
+  db_query("INSERT INTO {field_revision_field_farm_asset} (SELECT entity_type, 'farm_harvest' as bundle, deleted, entity_id, revision_id, language, delta, field_farm_sugar_bush_target_id as field_farm_asset_target_id FROM {field_revision_field_farm_sugar_bush} WHERE entity_type = 'log' AND bundle = 'farm_sap')");
+  db_query("DELETE FROM {field_data_field_farm_asset} WHERE entity_type = 'log' AND bundle = 'farm_sap'");
+  db_query("DELETE FROM {field_revision_field_farm_asset} WHERE entity_type = 'log' AND bundle = 'farm_sap'");
 
-    // If the log didn't load, skip it.
-    if (empty($log)) {
-      continue;
-    }
+  // Update the bundles in all field data and revision tables.
+  foreach ($sap_fields as $key => $field_name) {
+    db_query("UPDATE {field_data_" . $field_name . "} SET bundle = 'farm_harvest' WHERE entity_type = 'log' AND bundle = 'farm_sap'");
+    db_query("UPDATE {field_revision_" . $field_name . "} SET bundle = 'farm_harvest' WHERE entity_type = 'log' AND bundle = 'farm_sap'");
+  }
 
-    // Build a list of values for the new harvest log.
-    $values = array(
-      'type' => 'farm_harvest',
-      'name' => $log->name,
-      'timestamp' => $log->timestamp,
-      'created' => $log->created,
-      'changed' => $log->changed,
-      'uid' => $log->uid,
-      'done' => $log->done,
-    );
-
-    // Create a new harvest log.
-    $harvest = entity_create('log', $values);
-
-    // Copy fields from the sap log.
-    $harvest->field_farm_asset = $log->field_farm_sugar_bush;
-    $harvest->field_farm_quantity = $log->field_farm_quantity;
-    $harvest->field_farm_notes = $log->field_farm_notes;
-
-    // Save the new log.
-    log_save($harvest);
-
-    // Delete the old log.
-    log_delete($log);
+  // Mark all sap log field instances for deletion.
+  foreach ($sap_fields as $key => $field_name) {
+    $field = field_info_instance('log', $field_name, 'farm_sap');
+    field_delete_instance($field);
   }
 
   // Delete the View, if it still exists.
@@ -82,8 +73,7 @@ function farm_maple_update_7000(&$sandbox) {
 function farm_maple_update_7001(&$sandbox) {
 
   // Load all sugar bush assets.
-  $query = db_query("SELECT id FROM {farm_asset} WHERE type = 'sugar_bush'");
-  $result = $query->execute();
+  $result = db_query("SELECT id FROM {farm_asset} WHERE type = 'sugar_bush'");
 
   // Iterate through the results.
   foreach ($result as $record) {
@@ -96,38 +86,27 @@ function farm_maple_update_7001(&$sandbox) {
       continue;
     }
 
-    // Build a list of values for the new movement log.
-    $values = array(
-      'type' => 'farm_movement',
-      'timestamp' => $asset->created,
-      'created' => $asset->created,
-      'changed' => $asset->created,
-      'uid' => $asset->uid,
-      'done' => TRUE,
-    );
-
     // Create a new Area for the sugar bush.
     $vocab = taxonomy_vocabulary_machine_name_load('farm_areas');
     $term = entity_create('taxonomy_term', array(
       'name' => $asset->name,
       'vid' => $vocab->vid,
     ));
+
+    // Assign it to the geometry of the asset. This will only be temporary, so
+    // that the geometry is automatically copied to the observation log we are
+    // about to create.
+    $term->field_farm_geofield = $asset->field_farm_geofield;
+
+    // Save the new area.
     taxonomy_term_save($term);
 
-    // Create a new movement log.
-    $movement = entity_create('log', $values);
+    // Create an observed movement to that area.
+    farm_log_movement_observation($asset, array($term), $asset->created);
 
-    // Assign the movement to the asset.
-    $movement->field_farm_asset[LANGUAGE_NONE][0]['target_id'] = $asset->id;
-
-    // Assign the movement to the new area.
-    $movement->field_farm_move_to[LANGUAGE_NONE][0]['tid'] = $term->tid;
-
-    // Copy geometry field from the asset.
-    $movement->field_farm_geofield = $asset->field_farm_geofield;
-
-    // Save the new log.
-    log_save($movement);
+    // Clear the geometry from the area and save it again.
+    $term->field_farm_geofield = array(LANGUAGE_NONE => array());
+    taxonomy_term_save($term);
   }
 
   // Delete the geometry field from the asset.
