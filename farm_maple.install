@@ -39,8 +39,8 @@ function farm_maple_update_7000(&$sandbox) {
   // Migrate values from field_farm_sugar_bush to field_farm_asset tables.
   db_query("INSERT INTO {field_data_field_farm_asset} (SELECT entity_type, 'farm_harvest' as bundle, deleted, entity_id, revision_id, language, delta, field_farm_sugar_bush_target_id as field_farm_asset_target_id FROM {field_data_field_farm_sugar_bush} WHERE entity_type = 'log' AND bundle = 'farm_sap')");
   db_query("INSERT INTO {field_revision_field_farm_asset} (SELECT entity_type, 'farm_harvest' as bundle, deleted, entity_id, revision_id, language, delta, field_farm_sugar_bush_target_id as field_farm_asset_target_id FROM {field_revision_field_farm_sugar_bush} WHERE entity_type = 'log' AND bundle = 'farm_sap')");
-  db_query("DELETE FROM {field_data_field_farm_asset} WHERE entity_type = 'log' AND bundle = 'farm_sap'");
-  db_query("DELETE FROM {field_revision_field_farm_asset} WHERE entity_type = 'log' AND bundle = 'farm_sap'");
+  db_query("DELETE FROM {field_data_field_farm_sugar_bush} WHERE entity_type = 'log' AND bundle = 'farm_sap'");
+  db_query("DELETE FROM {field_revision_field_farm_sugar_bush} WHERE entity_type = 'log' AND bundle = 'farm_sap'");
 
   // Update the bundles in all field data and revision tables.
   foreach ($sap_fields as $key => $field_name) {
