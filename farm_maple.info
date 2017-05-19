@@ -15,6 +15,7 @@ dependencies[] = features
 dependencies[] = field_collection
 dependencies[] = image
 dependencies[] = log
+dependencies[] = multiupload_imagefield_widget
 dependencies[] = number
 dependencies[] = pathauto
 dependencies[] = strongarm
