@@ -37,6 +37,7 @@ features[field_base][] = field_farm_tap_size
 features[field_group][] = group_farm_description|farm_asset|sugar_bush|form
 features[field_group][] = group_farm_files|farm_asset|sugar_bush|form
 features[field_group][] = group_farm_files|log|farm_tap|form
+features[field_group][] = group_farm_general|farm_asset|sugar_bush|form
 features[field_group][] = group_farm_general|log|farm_tap|form
 features[field_group][] = group_farm_notes|log|farm_tap|form
 features[field_instance][] = farm_asset-sugar_bush-field_farm_description

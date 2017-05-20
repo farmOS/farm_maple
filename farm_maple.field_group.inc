@@ -102,6 +102,34 @@ function farm_maple_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_farm_general|farm_asset|sugar_bush|form';
+  $field_group->group_name = 'group_farm_general';
+  $field_group->entity_type = 'farm_asset';
+  $field_group->bundle = 'sugar_bush';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'General information',
+    'weight' => '0',
+    'children' => array(
+      0 => 'name',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-farm-general field-group-fieldset',
+        'required_fields' => 1,
+        'id' => '',
+      ),
+    ),
+  );
+  $field_groups['group_farm_general|farm_asset|sugar_bush|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_farm_general|log|farm_tap|form';
   $field_group->group_name = 'group_farm_general';
   $field_group->entity_type = 'log';
