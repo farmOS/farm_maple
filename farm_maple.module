@@ -209,3 +209,12 @@ function farm_maple_farm_log_allowed_asset_reference_type($log_type) {
     return 'sugar_bush';
   }
 }
+
+/**
+ * Implements hook_farm_log_categories().
+ */
+function farm_maple_farm_log_categories() {
+
+  // Provide an "Maple" log category.
+  return array('Maple');
+}
