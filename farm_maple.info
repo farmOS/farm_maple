@@ -1,7 +1,7 @@
 name = Farm Maple
 description = Features for management of maple tapping and production.
 core = 7.x
-package = farmOS
+package = farmOS Contrib
 dependencies[] = colorbox
 dependencies[] = ctools
 dependencies[] = entity
