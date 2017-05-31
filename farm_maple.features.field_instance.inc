@@ -105,7 +105,7 @@ function farm_maple_field_default_field_instances() {
     ),
     'entity_type' => 'farm_asset',
     'field_name' => 'field_farm_images',
-    'label' => 'Photo(s)',
+    'label' => 'Photos',
     'required' => 0,
     'settings' => array(
       'alt_field' => 0,
@@ -192,7 +192,7 @@ function farm_maple_field_default_field_instances() {
     ),
     'entity_type' => 'log',
     'field_name' => 'field_farm_images',
-    'label' => 'Photo(s)',
+    'label' => 'Photos',
     'required' => 0,
     'settings' => array(
       'alt_field' => 0,
@@ -400,7 +400,7 @@ function farm_maple_field_default_field_instances() {
   t('Files');
   t('How many taps were set in this sugar bush?');
   t('Notes');
-  t('Photo(s)');
+  t('Photos');
   t('Sugar Bush');
   t('Tap Count');
   t('Tap Size');
