@@ -217,6 +217,40 @@ function farm_maple_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_tap-field_farm_log_owner'.
+  $field_instances['log-farm_tap-field_farm_log_owner'] = array(
+    'bundle' => 'farm_tap',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Optionally assign this task to one or more people.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'entityreference',
+        'settings' => array(
+          'bypass_access' => FALSE,
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 4,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_log_owner',
+    'label' => 'Owner',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 6,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_tap-field_farm_notes'.
   $field_instances['log-farm_tap-field_farm_notes'] = array(
     'bundle' => 'farm_tap',
@@ -229,7 +263,7 @@ function farm_maple_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 4,
+        'weight' => 3,
       ),
     ),
     'entity_type' => 'log',
@@ -266,7 +300,7 @@ function farm_maple_field_default_field_instances() {
           'link' => 1,
         ),
         'type' => 'entityreference_label',
-        'weight' => 1,
+        'weight' => 0,
       ),
     ),
     'entity_type' => 'log',
@@ -306,7 +340,7 @@ function farm_maple_field_default_field_instances() {
           'thousand_separator' => ' ',
         ),
         'type' => 'number_integer',
-        'weight' => 2,
+        'weight' => 1,
       ),
     ),
     'entity_type' => 'log',
@@ -341,7 +375,7 @@ function farm_maple_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 3,
+        'weight' => 2,
       ),
     ),
     'entity_type' => 'log',
@@ -378,6 +412,8 @@ function farm_maple_field_default_field_instances() {
   t('Files');
   t('How many taps were set in this sugar bush?');
   t('Notes');
+  t('Optionally assign this task to one or more people.');
+  t('Owner');
   t('Photos');
   t('Sugar Bush');
   t('Tap Count');
