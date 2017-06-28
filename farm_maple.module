@@ -7,207 +7,27 @@
 include_once 'farm_maple.features.inc';
 
 /**
- * Implements hook_farm_access_perms().
+ * Implements hook_farm_ui_entities().
  */
-function farm_maple_farm_access_perms($role) {
-
-  // Assemble a list of entity types provided by this module.
-  $types = array(
+function farm_maple_farm_ui_entities() {
+  return array(
     'farm_asset' => array(
-      'sugar_bush',
+      'sugar_bush' => array(
+        'label' => t('Sugar Bush'),
+        'label_plural' => t('Sugar Bushes'),
+        'view' => 'farm_sugar_bushes',
+      ),
     ),
     'log' => array(
-      'farm_tap',
-    ),
-  );
-
-  // Grant different CRUD permissions based on the role.
-  $perms = array();
-  switch ($role) {
-
-    // Farm Manager and Worker
-    case 'Farm Manager':
-    case 'Farm Worker':
-      $perms = farm_access_entity_perms($types);
-      break;
-
-    // Farm Viewer
-    case 'Farm Viewer':
-      $perms = farm_access_entity_perms($types, array('view'));
-      break;
-  }
-
-  return $perms;
-}
-
-/**
- * Implements hook_farm_admin_actions().
- */
-function farm_maple_farm_admin_actions() {
-
-  // Define actions.
-  $actions = array(
-    'sugar_bush' => array(
-      'title' => t('Add a sugar bush'),
-      'href' => 'farm/asset/add/sugar_bush',
-      'views' => array(
-        'farm_sugar_bushes',
-      ),
-    ),
-    'tap' => array(
-      'title' => t('Add taps'),
-      'href' => 'log/add/farm_tap',
-      'assets' => array(
-        'sugar_bush',
-      ),
-      'views' => array(
-        'farm_log_tap',
+      'farm_tap' => array(
+        'label' => t('Tap log'),
+        'label_plural' => t('Tap logs'),
+        'view' => 'farm_log_tap',
+        'farm_asset' => 'sugar_bush',
+        'weight' => -99,
       ),
     ),
   );
-  return $actions;
-}
-
-/**
- * Implements hook_farm_asset_breadcrumb().
- */
-function farm_maple_farm_asset_breadcrumb($farm_asset) {
-
-  // If the asset is a sugar bush, add a link to the maple dashboard.
-  $breadcrumb = array();
-  if ($farm_asset->type == 'sugar_bush') {
-    $breadcrumb[] = l(t('Assets'), 'farm/assets');
-    $breadcrumb[] = l(t('Sugar Bushes'), 'farm/assets/maple');
-  }
-  return $breadcrumb;
-}
-
-/**
- * Implements hook_farm_asset_view_views().
- */
-function farm_maple_farm_asset_view_views($farm_asset) {
-
-  // If the entity is not a sugar bush, bail.
-  if ($farm_asset->type != 'sugar_bush') {
-    return array();
-  }
-
-  // Return a list of Views to include on sugar bushes.
-  return array(
-    array(
-      'name' => 'farm_log_tap',
-      'weight' => -10,
-    ),
-    array(
-      'name' => 'farm_log_activity',
-      'weight' => 0,
-    ),
-    array(
-      'name' => 'farm_log_observation',
-      'weight' => 10,
-    ),
-    array(
-      'name' => 'farm_log_input',
-      'weight' => 50,
-    ),
-    array(
-      'name' => 'farm_log_harvest',
-      'weight' => 60,
-    ),
-    array(
-      'name' => 'farm_log_movement',
-      'weight' => 100,
-    ),
-  );
-}
-
-/**
- * Implements hook_farm_taxonomy_term_view_views().
- */
-function farm_maple_farm_taxonomy_term_view_views($term) {
-
-  // Start a list of View names.
-  $views = array();
-
-  // Switch logic depending on the vocabulary.
-  switch ($term->vocabulary_machine_name) {
-
-    // Farm areas:
-    case 'farm_areas':
-      $views[] = array(
-        'name' => 'farm_sugar_bushes',
-        'arg' => 1,
-        'weight' => 0,
-      );
-      break;
-  }
-
-  return $views;
-}
-
-/**
- * Implements hook_farm_area_links().
- */
-function farm_maple_farm_area_links($id) {
-  $links = array();
-
-  // Add link to sugar bushes
-  $view = views_get_view('farm_sugar_bushes');
-  $view->preview('default', array($id));
-  if ($view->total_rows > 0) {
-    $links[] = array(
-      'title' => t('Sugar Bushes') . ': ' . $view->total_rows,
-      'href' => 'farm/assets/maple/' . $id,
-    );
-  }
-
-  return $links;
-}
-
-/**
- * Implements hook_views_post_render().
- */
-function farm_maple_views_post_render(&$view, &$output, &$cache) {
-
-  // If this is the Farm Sugar Bushes page...
-  if ($view->name == 'farm_sugar_bushes' && $view->current_display == 'page') {
-
-    // If dashboard maps are disabled in the farm_map module settings, bail.
-    if (!variable_get('farm_map_show', TRUE)) {
-      return;
-    }
-
-    // If there are any arguments, bail.
-    /**
-     * @todo
-     * Display a map that is filtered by the same arguments.
-     */
-    if (!empty($view->args)) {
-      return;
-    }
-
-    // If the View result is not empty...
-    if (!empty($view->result)) {
-
-      // Add the Sugar Bushes asset map to the top of the View.
-      $map = \Drupal\openlayers\Openlayers::load('Map', 'farm_assets_sugar_bush');
-      if (!empty($map)) {
-        $map_build = $map->build();
-        $output = drupal_render($map_build) . $output;
-      }
-    }
-  }
-}
-
-/**
- * Implements hook_farm_log_allowed_asset_reference_type().
- */
-function farm_maple_farm_log_allowed_asset_reference_type($log_type) {
-
-  // On tap logs, only sugar bushes can be referenced.
-  if ($log_type == 'farm_tap') {
-    return 'sugar_bush';
-  }
 }
 
 /**
