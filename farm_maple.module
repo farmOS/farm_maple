@@ -38,3 +38,14 @@ function farm_maple_farm_log_categories() {
   // Provide an "Maple" log category.
   return array('Maple');
 }
+
+/**
+ * Implements hook_farm_log_categories_populate().
+ */
+function farm_maple_farm_log_categories_populate($log) {
+  $categories = array();
+  if ($log->type == 'farm_tap') {
+    $categories[] = 'Maple';
+  }
+  return $categories;
+}

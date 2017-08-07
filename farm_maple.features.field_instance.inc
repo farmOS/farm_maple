@@ -217,6 +217,37 @@ function farm_maple_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_tap-field_farm_log_category'.
+  $field_instances['log-farm_tap-field_farm_log_category'] = array(
+    'bundle' => 'farm_tap',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Use this to organize your logs into categories for easier searching and filtering later.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 7,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_log_category',
+    'label' => 'Log category',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 8,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_tap-field_farm_log_owner'.
   $field_instances['log-farm_tap-field_farm_log_owner'] = array(
     'bundle' => 'farm_tap',
@@ -411,6 +442,7 @@ function farm_maple_field_default_field_instances() {
   t('Description');
   t('Files');
   t('How many taps were set in this sugar bush?');
+  t('Log category');
   t('Notes');
   t('Optionally assign this task to one or more people.');
   t('Owner');
@@ -419,6 +451,7 @@ function farm_maple_field_default_field_instances() {
   t('Tap Count');
   t('Tap Size');
   t('The sugar bush that is being tapped.');
+  t('Use this to organize your logs into categories for easier searching and filtering later.');
 
   return $field_instances;
 }
