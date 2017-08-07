@@ -41,9 +41,11 @@ function farm_maple_views_default_views() {
     'done' => 'done',
     'id' => 'id',
     'timestamp' => 'timestamp',
+    'name_1' => 'name_1',
     'field_farm_sugar_bush' => 'field_farm_sugar_bush',
     'field_farm_tap_count' => 'field_farm_tap_count',
     'field_farm_tap_size' => 'field_farm_tap_size',
+    'field_farm_notes' => 'field_farm_notes',
     'field_farm_log_category' => 'field_farm_log_category',
     'name' => 'name',
   );
@@ -75,6 +77,13 @@ function farm_maple_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
+    'name_1' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
     'field_farm_sugar_bush' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
@@ -90,6 +99,13 @@ function farm_maple_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_tap_size' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_notes' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -182,6 +198,12 @@ function farm_maple_views_default_views() {
   $handler->display->display_options['fields']['timestamp']['date_format'] = 'custom';
   $handler->display->display_options['fields']['timestamp']['custom_date_format'] = 'M j Y';
   $handler->display->display_options['fields']['timestamp']['second_date_format'] = 'long';
+  /* Field: Log: Name */
+  $handler->display->display_options['fields']['name_1']['id'] = 'name_1';
+  $handler->display->display_options['fields']['name_1']['table'] = 'log';
+  $handler->display->display_options['fields']['name_1']['field'] = 'name';
+  $handler->display->display_options['fields']['name_1']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['name_1']['alter']['path'] = 'log/[id]';
   /* Field: Log: Sugar Bush */
   $handler->display->display_options['fields']['field_farm_sugar_bush']['id'] = 'field_farm_sugar_bush';
   $handler->display->display_options['fields']['field_farm_sugar_bush']['table'] = 'field_data_field_farm_sugar_bush';
@@ -201,6 +223,14 @@ function farm_maple_views_default_views() {
   $handler->display->display_options['fields']['field_farm_tap_size']['id'] = 'field_farm_tap_size';
   $handler->display->display_options['fields']['field_farm_tap_size']['table'] = 'field_data_field_farm_tap_size';
   $handler->display->display_options['fields']['field_farm_tap_size']['field'] = 'field_farm_tap_size';
+  /* Field: Log: Notes */
+  $handler->display->display_options['fields']['field_farm_notes']['id'] = 'field_farm_notes';
+  $handler->display->display_options['fields']['field_farm_notes']['table'] = 'field_data_field_farm_notes';
+  $handler->display->display_options['fields']['field_farm_notes']['field'] = 'field_farm_notes';
+  $handler->display->display_options['fields']['field_farm_notes']['alter']['trim_whitespace'] = TRUE;
+  $handler->display->display_options['fields']['field_farm_notes']['alter']['max_length'] = '140';
+  $handler->display->display_options['fields']['field_farm_notes']['alter']['strip_tags'] = TRUE;
+  $handler->display->display_options['fields']['field_farm_notes']['alter']['trim'] = TRUE;
   /* Field: Log: Log category */
   $handler->display->display_options['fields']['field_farm_log_category']['id'] = 'field_farm_log_category';
   $handler->display->display_options['fields']['field_farm_log_category']['table'] = 'field_data_field_farm_log_category';
@@ -365,9 +395,11 @@ function farm_maple_views_default_views() {
     t('Log ID'),
     t('.'),
     t('Date'),
+    t('Name'),
     t('Sugar Bush'),
     t('Tap Count'),
     t('Tap Size'),
+    t('Notes'),
     t('Categories'),
     t('Start date'),
     t('End date'),
@@ -406,7 +438,9 @@ function farm_maple_views_default_views() {
     'views_bulk_operations' => 'views_bulk_operations',
     'id' => 'id',
     'name' => 'name',
+    'field_farm_description' => 'field_farm_description',
     'field_farm_move_to' => 'field_farm_move_to',
+    'active' => 'active',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
@@ -429,7 +463,19 @@ function farm_maple_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
+    'field_farm_description' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
     'field_farm_move_to' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'active' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -470,7 +516,6 @@ function farm_maple_views_default_views() {
   $handler->display->display_options['fields']['id']['table'] = 'farm_asset';
   $handler->display->display_options['fields']['id']['field'] = 'id';
   $handler->display->display_options['fields']['id']['label'] = 'Asset ID';
-  $handler->display->display_options['fields']['id']['exclude'] = TRUE;
   $handler->display->display_options['fields']['id']['separator'] = '';
   /* Field: Farm asset: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
@@ -478,12 +523,25 @@ function farm_maple_views_default_views() {
   $handler->display->display_options['fields']['name']['field'] = 'name';
   $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name']['alter']['path'] = 'farm/asset/[id]';
+  /* Field: Farm asset: Description */
+  $handler->display->display_options['fields']['field_farm_description']['id'] = 'field_farm_description';
+  $handler->display->display_options['fields']['field_farm_description']['table'] = 'field_data_field_farm_description';
+  $handler->display->display_options['fields']['field_farm_description']['field'] = 'field_farm_description';
+  $handler->display->display_options['fields']['field_farm_description']['alter']['trim_whitespace'] = TRUE;
+  $handler->display->display_options['fields']['field_farm_description']['alter']['max_length'] = '140';
+  $handler->display->display_options['fields']['field_farm_description']['alter']['strip_tags'] = TRUE;
+  $handler->display->display_options['fields']['field_farm_description']['alter']['trim'] = TRUE;
   /* Field: Field collection item: Movement to */
   $handler->display->display_options['fields']['field_farm_move_to']['id'] = 'field_farm_move_to';
   $handler->display->display_options['fields']['field_farm_move_to']['table'] = 'field_data_field_farm_move_to';
   $handler->display->display_options['fields']['field_farm_move_to']['field'] = 'field_farm_move_to';
   $handler->display->display_options['fields']['field_farm_move_to']['relationship'] = 'latest_movement';
   $handler->display->display_options['fields']['field_farm_move_to']['label'] = 'Location';
+  /* Field: Farm asset: Active */
+  $handler->display->display_options['fields']['active']['id'] = 'active';
+  $handler->display->display_options['fields']['active']['table'] = 'farm_asset';
+  $handler->display->display_options['fields']['active']['field'] = 'active';
+  $handler->display->display_options['fields']['active']['not'] = 0;
   /* Sort criterion: Farm asset: Name */
   $handler->display->display_options['sorts']['name']['id'] = 'name';
   $handler->display->display_options['sorts']['name']['table'] = 'farm_asset';
@@ -608,10 +666,11 @@ function farm_maple_views_default_views() {
     t('Asset ID'),
     t('.'),
     t('Name'),
+    t('Description'),
     t('Location'),
+    t('Active'),
     t('All'),
     t('Sugar Bushes in %1'),
-    t('Active'),
     t('Page'),
     t('Data export'),
   );
