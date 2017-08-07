@@ -49,3 +49,36 @@ function farm_maple_farm_log_categories_populate($log) {
   }
   return $categories;
 }
+
+/**
+ * Implements hook_feeds_importer_default_alter().
+ */
+function farm_maple_feeds_importer_default_alter(&$importers) {
+
+  // Add extra field mappings to taps.
+  $name = 'log_farm_tap';
+  if (!empty($importers[$name])) {
+    $mappings = array(
+      array(
+        'source' => 'Sugar bush',
+        'target' => 'field_farm_sugar_bush:label',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Tap count',
+        'target' => 'field_farm_tap_count',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Tap size',
+        'target' => 'field_farm_tap_size',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+    );
+    $importer_mappings =& $importers[$name]->config['processor']['config']['mappings'];
+    $importer_mappings = array_merge($importer_mappings, $mappings);
+  }
+}
