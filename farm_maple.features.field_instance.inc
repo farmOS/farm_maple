@@ -268,7 +268,7 @@ function farm_maple_field_default_field_instances() {
     ),
     'entity_type' => 'log',
     'field_name' => 'field_farm_log_owner',
-    'label' => 'Owner',
+    'label' => 'Assigned to',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -439,13 +439,13 @@ function farm_maple_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Assigned to');
   t('Description');
   t('Files');
   t('How many taps were set in this sugar bush?');
   t('Log category');
   t('Notes');
   t('Optionally assign this task to one or more people.');
-  t('Owner');
   t('Photos');
   t('Sugar Bush');
   t('Tap Count');
