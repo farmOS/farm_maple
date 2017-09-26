@@ -18,10 +18,10 @@ function farm_maple_field_group_info() {
   $field_group->entity_type = 'log';
   $field_group->bundle = 'farm_tap';
   $field_group->mode = 'form';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_farm_general';
   $field_group->data = array(
     'label' => 'Assignment',
-    'weight' => '3',
+    'weight' => '1',
     'children' => array(
       0 => 'field_farm_log_owner',
     ),
@@ -47,10 +47,10 @@ function farm_maple_field_group_info() {
   $field_group->entity_type = 'log';
   $field_group->bundle = 'farm_tap';
   $field_group->mode = 'form';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_farm_general';
   $field_group->data = array(
     'label' => 'Category',
-    'weight' => '2',
+    'weight' => '0',
     'children' => array(
       0 => 'field_farm_log_category',
     ),
@@ -71,58 +71,27 @@ function farm_maple_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_farm_description|farm_asset|sugar_bush|form';
-  $field_group->group_name = 'group_farm_description';
-  $field_group->entity_type = 'farm_asset';
-  $field_group->bundle = 'sugar_bush';
-  $field_group->mode = 'form';
-  $field_group->parent_name = '';
-  $field_group->data = array(
-    'label' => 'Description',
-    'weight' => '1',
-    'children' => array(
-      0 => 'field_farm_description',
-    ),
-    'format_type' => 'fieldset',
-    'format_settings' => array(
-      'label' => 'Description',
-      'instance_settings' => array(
-        'required_fields' => 1,
-        'id' => '',
-        'classes' => 'group-farm-description field-group-fieldset',
-        'description' => '',
-      ),
-      'formatter' => 'collapsed',
-    ),
-  );
-  $field_groups['group_farm_description|farm_asset|sugar_bush|form'] = $field_group;
-
-  $field_group = new stdClass();
-  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
-  $field_group->api_version = 1;
   $field_group->identifier = 'group_farm_files|farm_asset|sugar_bush|form';
   $field_group->group_name = 'group_farm_files';
   $field_group->entity_type = 'farm_asset';
   $field_group->bundle = 'sugar_bush';
   $field_group->mode = 'form';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_farm_tabs';
   $field_group->data = array(
-    'label' => 'File attachments',
+    'label' => 'Files',
     'weight' => '2',
     'children' => array(
       0 => 'field_farm_files',
       1 => 'field_farm_images',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'field_group_easy_responsive_tabs_nav_item',
     'format_settings' => array(
-      'label' => 'File attachments',
+      'label' => 'Files',
       'instance_settings' => array(
         'required_fields' => 1,
-        'id' => '',
-        'classes' => 'group-farm-files field-group-fieldset',
-        'description' => '',
+        'classes' => '',
       ),
-      'formatter' => 'collapsed',
+      'formatter' => '',
     ),
   );
   $field_groups['group_farm_files|farm_asset|sugar_bush|form'] = $field_group;
@@ -135,24 +104,22 @@ function farm_maple_field_group_info() {
   $field_group->entity_type = 'log';
   $field_group->bundle = 'farm_tap';
   $field_group->mode = 'form';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_farm_tabs';
   $field_group->data = array(
-    'label' => 'File attachments',
-    'weight' => '4',
+    'label' => 'Files',
+    'weight' => '2',
     'children' => array(
       0 => 'field_farm_files',
       1 => 'field_farm_images',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'field_group_easy_responsive_tabs_nav_item',
     'format_settings' => array(
-      'label' => 'File attachments',
+      'label' => 'Files',
       'instance_settings' => array(
         'required_fields' => 1,
-        'id' => '',
-        'classes' => 'group-farm-files field-group-fieldset',
-        'description' => '',
+        'classes' => '',
       ),
-      'formatter' => 'collapsed',
+      'formatter' => '',
     ),
   );
   $field_groups['group_farm_files|log|farm_tap|form'] = $field_group;
@@ -165,22 +132,22 @@ function farm_maple_field_group_info() {
   $field_group->entity_type = 'farm_asset';
   $field_group->bundle = 'sugar_bush';
   $field_group->mode = 'form';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_farm_tabs';
   $field_group->data = array(
-    'label' => 'General information',
-    'weight' => '0',
+    'label' => 'General',
+    'weight' => '1',
     'children' => array(
-      0 => 'name',
+      0 => 'field_farm_description',
+      1 => 'name',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'field_group_easy_responsive_tabs_nav_item',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'General',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-farm-general field-group-fieldset',
         'required_fields' => 1,
-        'id' => '',
+        'classes' => '',
       ),
+      'formatter' => '',
     ),
   );
   $field_groups['group_farm_general|farm_asset|sugar_bush|form'] = $field_group;
@@ -193,25 +160,27 @@ function farm_maple_field_group_info() {
   $field_group->entity_type = 'log';
   $field_group->bundle = 'farm_tap';
   $field_group->mode = 'form';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_farm_tabs';
   $field_group->data = array(
-    'label' => 'General information',
-    'weight' => '0',
+    'label' => 'General',
+    'weight' => '1',
     'children' => array(
-      0 => 'field_farm_sugar_bush',
-      1 => 'field_farm_tap_count',
-      2 => 'field_farm_tap_size',
-      3 => 'timestamp',
+      0 => 'field_farm_notes',
+      1 => 'field_farm_sugar_bush',
+      2 => 'field_farm_tap_count',
+      3 => 'field_farm_tap_size',
+      4 => 'timestamp',
+      5 => 'group_farm_category',
+      6 => 'group_farm_assignment',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'field_group_easy_responsive_tabs_nav_item',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'General',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-farm-general field-group-fieldset',
         'required_fields' => 1,
-        'id' => '',
+        'classes' => '',
       ),
+      'formatter' => '',
     ),
   );
   $field_groups['group_farm_general|log|farm_tap|form'] = $field_group;
@@ -219,40 +188,82 @@ function farm_maple_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_farm_notes|log|farm_tap|form';
-  $field_group->group_name = 'group_farm_notes';
+  $field_group->identifier = 'group_farm_tabs|farm_asset|sugar_bush|form';
+  $field_group->group_name = 'group_farm_tabs';
+  $field_group->entity_type = 'farm_asset';
+  $field_group->bundle = 'sugar_bush';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Tabs',
+    'weight' => '0',
+    'children' => array(
+      0 => 'group_farm_files',
+      1 => 'group_farm_general',
+    ),
+    'format_type' => 'field_group_easy_responsive_tabs_nav',
+    'format_settings' => array(
+      'label' => 'Tabs',
+      'instance_settings' => array(
+        'type' => 'vertical',
+        'width' => 'auto',
+        'fit' => '1',
+        'closed' => '0',
+        'activetab_bg' => '',
+        'inactive_bg' => '',
+        'active_border_color' => '',
+        'active_content_border_color' => '',
+        'tabidentify' => '',
+        'required_fields' => 1,
+        'classes' => 'group-farm-tabs field-group-field_group_easy_responsive_tabs_nav',
+      ),
+    ),
+  );
+  $field_groups['group_farm_tabs|farm_asset|sugar_bush|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_farm_tabs|log|farm_tap|form';
+  $field_group->group_name = 'group_farm_tabs';
   $field_group->entity_type = 'log';
   $field_group->bundle = 'farm_tap';
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Notes',
-    'weight' => '1',
+    'label' => 'Tabs',
+    'weight' => '0',
     'children' => array(
-      0 => 'field_farm_notes',
+      0 => 'group_farm_files',
+      1 => 'group_farm_general',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'field_group_easy_responsive_tabs_nav',
     'format_settings' => array(
-      'label' => 'Notes',
+      'label' => 'Tabs',
       'instance_settings' => array(
+        'type' => 'vertical',
+        'width' => 'auto',
+        'fit' => '1',
+        'closed' => '0',
+        'activetab_bg' => '',
+        'inactive_bg' => '',
+        'active_border_color' => '',
+        'active_content_border_color' => '',
+        'tabidentify' => '',
         'required_fields' => 1,
-        'id' => '',
-        'classes' => 'group-farm-notes field-group-fieldset',
-        'description' => '',
+        'classes' => 'group-farm-tabs field-group-field_group_easy_responsive_tabs_nav',
       ),
-      'formatter' => 'collapsed',
     ),
   );
-  $field_groups['group_farm_notes|log|farm_tap|form'] = $field_group;
+  $field_groups['group_farm_tabs|log|farm_tap|form'] = $field_group;
 
   // Translatables
   // Included for use with string extractors like potx.
   t('Assignment');
   t('Category');
-  t('Description');
-  t('File attachments');
-  t('General information');
-  t('Notes');
+  t('Files');
+  t('General');
+  t('Tabs');
 
   return $field_groups;
 }

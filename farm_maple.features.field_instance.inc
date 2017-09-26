@@ -40,7 +40,7 @@ function farm_maple_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 2,
+      'weight' => -9,
     ),
   );
 
@@ -312,7 +312,7 @@ function farm_maple_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 2,
+      'weight' => -1,
     ),
   );
 
@@ -350,7 +350,7 @@ function farm_maple_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 2,
+      'weight' => -4,
     ),
   );
 
@@ -390,7 +390,7 @@ function farm_maple_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 3,
+      'weight' => -3,
     ),
   );
 
@@ -433,7 +433,7 @@ function farm_maple_field_default_field_instances() {
         'sort_options' => 0,
       ),
       'type' => 'text_textfield',
-      'weight' => 4,
+      'weight' => -2,
     ),
   );
 
