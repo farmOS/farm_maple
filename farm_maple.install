@@ -10,12 +10,12 @@
  */
 function farm_maple_update_dependencies() {
 
-  // Run farm_log_movement_7000(), then farm_maple_7000(), then farm_log_7000(),
-  // then farm_maple_7001(), and finally farm_log_movement_7001().
-  $dependencies['farm_maple'][7000] = array('farm_log_movement' => 7000);
-  $dependencies['farm_maple'][7001] = array('farm_log_movement' => 7000);
+  // Run farm_movement_7000(), then farm_maple_7000(), then farm_log_7000(),
+  // then farm_maple_7001(), and finally farm_movement_7001().
+  $dependencies['farm_maple'][7000] = array('farm_movement' => 7000);
+  $dependencies['farm_maple'][7001] = array('farm_movement' => 7000);
   $dependencies['farm_maple'][7001] = array('farm_log' => 7006);
-  $dependencies['farm_log_movement'][7001] = array('farm_maple' => 7001);
+  $dependencies['farm_movement'][7001] = array('farm_maple' => 7001);
 
   return $dependencies;
 }
@@ -102,7 +102,7 @@ function farm_maple_update_7001(&$sandbox) {
     taxonomy_term_save($term);
 
     // Create an observed movement to that area.
-    farm_log_movement_observation($asset, array($term), $asset->created);
+    farm_movement_create($asset, array($term), $asset->created);
 
     // Clear the geometry from the area and save it again.
     $term->field_farm_geofield = array(LANGUAGE_NONE => array());

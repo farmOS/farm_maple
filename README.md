@@ -21,7 +21,6 @@ This module depends on the following modules:
  * Pathauto (http://drupal.org/project/pathauto)
  * Strongarm (http://drupal.org/project/strongarm)
  * Farm Asset (http://drupal.org/project/farm_asset)
- * Farm Log (http://drupal.org/project/farm_log)
  * Farm Map (http://drupal.org/project/farm_map)
  * Farm Quantity (http://drupal.org/project/farm_quantity)
 
