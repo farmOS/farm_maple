@@ -224,6 +224,7 @@ function farm_maple_views_default_views() {
   $handler->display->display_options['fields']['name_1']['id'] = 'name_1';
   $handler->display->display_options['fields']['name_1']['table'] = 'log';
   $handler->display->display_options['fields']['name_1']['field'] = 'name';
+  $handler->display->display_options['fields']['name_1']['label'] = 'Log name';
   $handler->display->display_options['fields']['name_1']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name_1']['alter']['path'] = 'log/[id]';
   /* Field: Log: Sugar Bush */
@@ -420,7 +421,7 @@ function farm_maple_views_default_views() {
     t('Log ID'),
     t('.'),
     t('Date'),
-    t('Name'),
+    t('Log name'),
     t('Sugar Bush'),
     t('Tap Count'),
     t('Tap Size'),
