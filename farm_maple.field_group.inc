@@ -21,7 +21,7 @@ function farm_maple_field_group_info() {
   $field_group->parent_name = 'group_farm_general';
   $field_group->data = array(
     'label' => 'Assignment',
-    'weight' => '1',
+    'weight' => '2',
     'children' => array(
       0 => 'field_farm_log_owner',
     ),
@@ -50,7 +50,7 @@ function farm_maple_field_group_info() {
   $field_group->parent_name = 'group_farm_general';
   $field_group->data = array(
     'label' => 'Category',
-    'weight' => '0',
+    'weight' => '1',
     'children' => array(
       0 => 'field_farm_log_category',
     ),
@@ -79,7 +79,7 @@ function farm_maple_field_group_info() {
   $field_group->parent_name = 'group_farm_tabs';
   $field_group->data = array(
     'label' => 'Files',
-    'weight' => '2',
+    'weight' => '3',
     'children' => array(
       0 => 'field_farm_files',
       1 => 'field_farm_images',
@@ -138,7 +138,8 @@ function farm_maple_field_group_info() {
     'weight' => '1',
     'children' => array(
       0 => 'field_farm_description',
-      1 => 'name',
+      1 => 'field_farm_flags',
+      2 => 'name',
     ),
     'format_type' => 'field_group_easy_responsive_tabs_nav_item',
     'format_settings' => array(
@@ -169,9 +170,10 @@ function farm_maple_field_group_info() {
       1 => 'field_farm_sugar_bush',
       2 => 'field_farm_tap_count',
       3 => 'field_farm_tap_size',
-      4 => 'timestamp',
-      5 => 'group_farm_category',
-      6 => 'group_farm_assignment',
+      4 => 'field_farm_flags',
+      5 => 'timestamp',
+      6 => 'group_farm_category',
+      7 => 'group_farm_assignment',
     ),
     'format_type' => 'field_group_easy_responsive_tabs_nav_item',
     'format_settings' => array(
