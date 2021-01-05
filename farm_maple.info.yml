@@ -1,0 +1,5 @@
+name: Maple
+description: Maple management features for farmOS.
+type: module
+package: farmOS Contrib
+core_version_requirement: ^9
