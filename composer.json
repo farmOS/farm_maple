@@ -1,0 +1,18 @@
+{
+  "name": "drupal/farm_maple",
+  "description": "Maple management features for farmOS.",
+  "type": "drupal-module",
+  "homepage": "https://www.drupal.org/project/farm_maple",
+  "license": "GPL-2.0-or-later",
+  "support": {
+      "docs": "https://farmOS.org/guide",
+      "forum": "https://farmOS.discourse.group",
+      "chat": "https://matrix.to/#/#farmOS:matrix.org"
+  },
+  "authors": [
+      {
+          "name": "Michael Stenta",
+          "email": "mike@farmier.com"
+      }
+  ]
+}
