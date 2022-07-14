@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_maple
+id: asset_maple
+color: red
+conditions:
+  asset_type:
+    - maple
