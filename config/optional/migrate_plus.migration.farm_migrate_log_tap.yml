@@ -1,0 +1,67 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_migrate
+      - farm_maple
+id: farm_migrate_log_tap
+label: 'Logs (Maple Taps)'
+migration_group: farm_migrate_log
+migration_tags:
+  - 'Drupal 7'
+  - 'farmOS 1.x'
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+source:
+  plugin: d7_farm_maple_tap_log
+  bundle: farm_tap
+destination:
+  plugin: 'entity:log'
+process:
+  # Hard-code the bundle.
+  type:
+    plugin: default_value
+    default_value: activity
+  # Maintain the log ID.
+  id:
+    plugin: get
+    source: id
+  # Migrate sugar bush reference into asset reference.
+  asset:
+    plugin: sub_process
+    source: field_farm_sugar_bush
+    process:
+      target_id:
+        plugin: farm_migration_group_lookup
+        migration_group: farm_migrate_asset
+        source: target_id
+  # Migrate tap count into a quantity.
+  quantity:
+    - plugin: get
+      source: tap_count_quantities
+    - plugin: create_quantity
+      default_values:
+        type: 'standard'
+        measure: 'count'
+        label: 'Tap count'
+      values:
+        value: value
+        units: units
+  # Concatenate the 1.x "Tap size" field into Notes.
+  notes/0/value:
+    plugin: concat
+    source:
+      - tap_size
+      - field_farm_notes/0/value
+  notes/0/format:
+    plugin: static_map
+    source: field_farm_notes/0/format
+    map:
+      farm_format: default
+      plain_text: plain_text
+    default_value: default
+migration_dependencies:
+  required: {  }
+  optional: {  }

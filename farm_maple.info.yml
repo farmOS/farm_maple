@@ -4,6 +4,7 @@ type: module
 package: farmOS Contrib
 core_version_requirement: ^9
 dependencies:
+  - farm_activity
   - farm_entity
   - farm_harvest
   - farm_inventory
