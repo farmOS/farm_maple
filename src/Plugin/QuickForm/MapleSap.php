@@ -2,82 +2,41 @@
 
 namespace Drupal\farm_maple\Plugin\QuickForm;
 
-use Drupal\Component\Datetime\TimeInterface;
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\farm_quick\Attribute\QuickForm;
 use Drupal\farm_quick\Plugin\QuickForm\QuickFormBase;
 use Drupal\farm_quick\Traits\QuickLogTrait;
 use Drupal\farm_quick\Traits\QuickStringTrait;
-use Psr\Container\ContainerInterface;
 
 /**
  * Maple sap harvest quick form.
- *
- * @QuickForm(
- *   id = "maple_sap",
- *   label = @Translation("Maple sap harvest"),
- *   description = @Translation("Record maple sap harvest."),
- *   helpText = @Translation("This form will create a harvest log to represent the collection of maple sap."),
- *   permissions = {
- *     "create harvest log",
- *   }
- * )
  */
+#[QuickForm(
+  id: 'maple_sap',
+  label: new TranslatableMarkup('Maple sap harvest'),
+  description: new TranslatableMarkup('Record maple sap harvest.'),
+  helpText: new TranslatableMarkup('This form will create a harvest log to represent the collection of maple sap.'),
+  permissions: [
+    'create harvest log',
+  ],
+)]
 class MapleSap extends QuickFormBase {
 
   use QuickLogTrait;
   use QuickStringTrait;
 
-  /**
-   * The entity type manager service.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
-   */
-  protected $entityTypeManager;
-
-  /**
-   * The time service.
-   *
-   * @var \Drupal\Component\Datetime\TimeInterface
-   */
-  protected $time;
-
-  /**
-   * Constructs a QuickFormBase object.
-   *
-   * @param array $configuration
-   *   A configuration array containing information about the plugin instance.
-   * @param string $plugin_id
-   *   The plugin_id for the plugin instance.
-   * @param mixed $plugin_definition
-   *   The plugin implementation definition.
-   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
-   *   The messenger service.
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   The entity type manager service.
-   * @param \Drupal\Component\Datetime\TimeInterface $time
-   *   The time service.
-   */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, MessengerInterface $messenger, EntityTypeManagerInterface $entity_type_manager, TimeInterface $time) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition, $messenger);
-    $this->messenger = $messenger;
-    $this->entityTypeManager = $entity_type_manager;
-    $this->time = $time;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    return new static(
-      $configuration,
-      $plugin_id,
-      $plugin_definition,
-      $container->get('messenger'),
-      $container->get('entity_type.manager'),
-      $container->get('datetime.time'),
-    );
+  public function __construct(
+    array $configuration,
+    $plugin_id,
+    $plugin_definition,
+    EntityTypeManagerInterface $entity_type_manager,
+    AccountInterface $current_user,
+  ) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $entity_type_manager, $current_user);
   }
 
   /**
@@ -88,10 +47,9 @@ class MapleSap extends QuickFormBase {
 
     // Date.
     $form['date'] = [
-      '#type' => 'date',
+      '#type' => 'datetime',
       '#title' => $this->t('Date'),
-      '#date_year_range' => '-10:+3',
-      '#default_value' => date('Y-m-d', $this->time->getRequestTime()),
+      '#default_value' => new DrupalDateTime('now', $this->currentUser->getTimeZone()),
       '#required' => TRUE,
     ];
 
@@ -152,6 +110,9 @@ class MapleSap extends QuickFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
 
+    // Get the date.
+    $timestamp = $form_state->getValue('date')->getTimestamp();
+
     // Load the maple asset.
     /** @var \Drupal\asset\Entity\AssetInterface $asset */
     $asset = $this->entityTypeManager->getStorage('asset')->load($form_state->getValue('asset'));
@@ -179,7 +140,7 @@ class MapleSap extends QuickFormBase {
     $this->createLog([
       'type' => 'harvest',
       'name' => $log_name,
-      'timestamp' => strtotime($form_state->getValue('date')),
+      'timestamp' => $timestamp,
       'asset' => $asset,
       'quantity' => $quantities,
       'notes' => $form_state->getValue('notes'),

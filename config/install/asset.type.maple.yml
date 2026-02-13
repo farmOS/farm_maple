@@ -9,7 +9,6 @@ dependencies:
 id: maple
 label: Maple
 description: ''
-workflow: asset_default
 new_revision: true
 third_party_settings:
   farm_location:

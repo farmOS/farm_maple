@@ -6,15 +6,10 @@
  */
 
 /**
- * Uninstall v1 migration configs.
+ * Implements hook_removed_post_updates().
  */
-function farm_maple_post_update_uninstall_v1_migrations(&$sandbox) {
-  $config = \Drupal::configFactory()->getEditable('migrate_plus.migration.farm_migrate_asset_maple');
-  if (!empty($config)) {
-    $config->delete();
-  }
-  $config = \Drupal::configFactory()->getEditable('migrate_plus.migration.farm_migrate_log_tap');
-  if (!empty($config)) {
-    $config->delete();
-  }
+function farm_maple_removed_post_updates() {
+  return [
+    'farm_maple_post_update_uninstall_v1_migrations' => '3.x',
+  ];
 }
