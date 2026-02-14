@@ -29,16 +29,6 @@ class MapleSap extends QuickFormBase {
   use QuickLogTrait;
   use QuickStringTrait;
 
-  public function __construct(
-    array $configuration,
-    $plugin_id,
-    $plugin_definition,
-    EntityTypeManagerInterface $entity_type_manager,
-    AccountInterface $current_user,
-  ) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition, $entity_type_manager, $current_user);
-  }
-
   /**
    * {@inheritdoc}
    */
